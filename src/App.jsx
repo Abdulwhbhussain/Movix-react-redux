@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { fetchDataFromApi } from './utils/api';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getApiConfiguration } from './redux/homeSlice';
 import Header from './components/header/Header';
@@ -27,10 +28,17 @@ function App() {
   }, [])
 
   return (
-    <div>
-      App
-      {url?.total_pages}
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/:mediaType/:id' element={<Details />} />
+        <Route path='/search/:query' element={<SearchResult />} />
+        <Route path='/explore/:mediaType' element={<Explore />} />
+        <Route path='*' element={<PageNotFound />} />
+      </Routes>
+      <Footer />
+    </Router>
   )
 }
 
