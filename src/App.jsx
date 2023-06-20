@@ -17,9 +17,14 @@ function App() {
   const dispatch = useDispatch();
 
   const apiTesting = () => {
-    fetchDataFromApi('/movie/popular').then((data) => {
+    fetchDataFromApi('/configuration').then((data) => {
       console.log(data);
-      dispatch(getApiConfiguration(data));
+      const url = {
+        backdrop: data.images.secure_base_url + "original",
+        poster: data.images.secure_base_url + "original",
+        profile: data.images.secure_base_url + "original",
+      }
+      dispatch(getApiConfiguration(url));
     })
   }
 
